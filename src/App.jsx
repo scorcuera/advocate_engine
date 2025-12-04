@@ -108,10 +108,7 @@ function App() {
     const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
     const endIndex = startIndex + ITEMS_PER_PAGE;
     setPaginatedArticles(filteredArticles.slice(startIndex, endIndex));
-    // Scroll top when changing page
-    if (!loading && !filtering) {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+    // Scroll top eliminado para evitar saltos de vista
   }, [filteredArticles, currentPage]);
 
   const totalPages = Math.ceil(filteredArticles.length / ITEMS_PER_PAGE);
