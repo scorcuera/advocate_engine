@@ -23,32 +23,50 @@ const getHeaders = () => ({
  */
 export const fetchArticles = async () => {
   try {
-    const response = await fetch(BASE_URL, {
-      method: 'GET',
-      headers: getHeaders(),
-    });
+    let allRecords = [];
+    let offset = null;
+    let pageCount = 0;
 
-    if (!response.ok) {
-      // Essayer de lire le détail de l'erreur
-      const errorData = await response.json().catch(() => ({}));
-      
-      if (response.status === 401) {
-        throw new Error('Erreur d\'authentification (401): Vérifiez votre clé API Airtable. Assurez-vous d\'utiliser un Personal Access Token valide.');
-      }
-      if (response.status === 404) {
-        throw new Error(`Table non trouvée (404): Vérifiez que la table "${TABLE_NAME}" existe dans votre base Airtable.`);
-      }
-      if (response.status === 403) {
-        throw new Error('Accès refusé (403): Votre clé API n\'a pas les permissions nécessaires pour accéder à cette table.');
-      }
-      
-      throw new Error(`Erreur API Airtable (${response.status}): ${errorData.error?.message || response.statusText}`);
-    }
+    // Paginar hasta obtener todos los registros
+    do {
+      pageCount++;
+      // Construir URL con offset si existe
+      const url = offset 
+        ? `${BASE_URL}?offset=${offset}` 
+        : BASE_URL;
 
-    const data = await response.json();
-    
-    // Formater les données pour l'application
-    return data.records.map(record => ({
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: getHeaders(),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        
+        if (response.status === 401) {
+          throw new Error('Erreur d\'authentification (401): Vérifiez votre clé API Airtable.');
+        }
+        if (response.status === 404) {
+          throw new Error(`Table non trouvée (404): Vérifiez que la table "${TABLE_NAME}" existe.`);
+        }
+        if (response.status === 403) {
+          throw new Error('Accès refusé (403): Votre clé API n\'a pas les permissions nécessaires.');
+        }
+        
+        throw new Error(`Erreur API Airtable (${response.status}): ${errorData.error?.message || response.statusText}`);
+      }
+
+      const data = await response.json();
+      
+      // Agregar registros de esta página
+      allRecords = allRecords.concat(data.records);
+      
+      // Actualizar offset para siguiente página
+      offset = data.offset || null;
+
+    } while (offset); // Continuar mientras haya más páginas    
+    // Formatear los datos para la aplicación
+    return allRecords.map(record => ({
       id: record.id,
       title: record.fields.Title || '',
       url: record.fields.URL || '',
@@ -67,8 +85,8 @@ export const fetchArticles = async () => {
       tags: record.fields.Tags || [],
     }));
   } catch (error) {
+    console.error('❌ Erreur lors de la récupération des articles:', error);
     
-    // Si c'est une erreur réseau
     if (error.message.includes('Failed to fetch') || error.name === 'TypeError') {
       throw new Error('Erreur de connexion: Impossible de contacter Airtable. Vérifiez votre connexion Internet.');
     }
