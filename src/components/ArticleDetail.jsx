@@ -10,7 +10,8 @@ import {
   Copy,
   Linkedin,
   Twitter,
-  Globe
+  Globe,
+  Hourglass
 } from 'lucide-react';
 
 /**
@@ -169,14 +170,53 @@ const ArticleDetail = ({ article, onClose, onApprove, onReject, isUpdating }) =>
             </div>
           )}
 
-          {/* Copies pour réseaux sociaux */}
-          <div className="space-y-4">
-            <h3 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-              <span>📱</span> Copies pour diffusion
-            </h3>
+          {/* Message pour articles "New" ou Copies pour réseaux sociaux */}
+          {article.status === 'New' ? (
+            <div className="bg-blue-50 border-l-4 border-blue-500 rounded-xl p-8 shadow-sm">
+              <div className="flex items-start gap-4">
+                <div className="bg-blue-100 p-3 rounded-full">
+                  <Hourglass className="w-8 h-8 text-blue-600" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-blue-900 mb-2">
+                    Article en attente de traitement
+                  </h3>
+                  <p className="text-blue-700 leading-relaxed mb-3">
+                    Cet article a été capturé et sera bientôt analysé par notre système d'IA. 
+                    Une fois le traitement terminé, vous disposerez :
+                  </p>
+                  <ul className="space-y-2 text-blue-700">
+                    <li className="flex items-center gap-2">
+                      <span className="text-blue-500">•</span>
+                      <span>D'un résumé IA complet</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="text-blue-500">•</span>
+                      <span>De points clés extraits automatiquement</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="text-blue-500">•</span>
+                      <span>De copies prêtes pour LinkedIn, Twitter et Intranet</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="text-blue-500">•</span>
+                      <span>D'un score de pertinence et d'une analyse de sentiment</span>
+                    </li>
+                  </ul>
+                  <p className="text-sm text-blue-600 mt-4 font-medium">
+                    💡 Le traitement prend généralement quelques minutes. Revenez bientôt pour consulter les résultats.
+                  </p>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="space-y-4">
+              <h3 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                <span>📱</span> Copies pour diffusion
+              </h3>
 
-            {/* LinkedIn */}
-            {article.linkedinCopy && (
+              {/* LinkedIn */}
+              {article.linkedinCopy && (
               <div className="bg-white border border-gray-300 rounded-xl p-6 hover:border-blue-400 hover:shadow-sm transition-all duration-150">
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-3">
@@ -267,7 +307,8 @@ const ArticleDetail = ({ article, onClose, onApprove, onReject, isUpdating }) =>
                 <p className="text-gray-700 whitespace-pre-wrap leading-relaxed">{article.intranetCopy}</p>
               </div>
             )}
-          </div>
+            </div>
+          )}
 
           {/* Lien vers l'article source */}
           <div className="flex justify-center pt-6">
