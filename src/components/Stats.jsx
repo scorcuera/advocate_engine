@@ -37,41 +37,33 @@ const Stats = ({ articles }) => {
       label: 'Total d\'articles',
       value: totalArticles,
       icon: FileText,
-      gradient: 'from-primary-600 to-primary-500',
-      iconBg: 'bg-primary-500/20',
-      iconColor: 'text-primary-400',
-      valueColor: 'text-white',
-      glow: 'shadow-glow-primary',
+      bgColor: 'bg-sociabble-blue-100',
+      iconColor: 'text-sociabble-blue-600',
+      valueColor: 'text-gray-900',
     },
     {
       label: 'Analysés aujourd\'hui',
       value: analyzedToday,
       icon: TrendingUp,
-      gradient: 'from-accent-teal-600 to-accent-teal-500',
-      iconBg: 'bg-accent-teal-500/20',
-      iconColor: 'text-accent-teal-400',
-      valueColor: 'text-white',
-      glow: 'shadow-glow-teal',
+      bgColor: 'bg-green-100',
+      iconColor: 'text-green-600',
+      valueColor: 'text-gray-900',
     },
     {
       label: 'Score moyen',
       value: `${avgRelevanceScore}/10`,
       icon: Target,
-      gradient: 'from-accent-purple-600 to-accent-purple-500',
-      iconBg: 'bg-accent-purple-500/20',
-      iconColor: 'text-accent-purple-400',
-      valueColor: 'text-white',
-      glow: 'shadow-glow-purple',
+      bgColor: 'bg-sociabble-purple-100',
+      iconColor: 'text-sociabble-purple-600',
+      valueColor: 'text-gray-900',
     },
     {
       label: 'Top industries',
       value: topIndustries.length > 0 ? topIndustries.join(', ') : 'Aucune',
       icon: Award,
-      gradient: 'from-accent-gold-600 to-accent-gold-500',
-      iconBg: 'bg-accent-gold-500/20',
-      iconColor: 'text-accent-gold-400',
-      valueColor: 'text-white',
-      glow: 'shadow-lg',
+      bgColor: 'bg-sociabble-orange-100',
+      iconColor: 'text-sociabble-orange-600',
+      valueColor: 'text-gray-900',
       isText: true,
     },
   ];
@@ -81,15 +73,15 @@ const Stats = ({ articles }) => {
       {stats.map((stat, index) => (
         <div
           key={index}
-          className="bg-dark-800 border border-dark-700 rounded-xl p-6 hardware-accelerated hover:border-dark-600 transition-colors duration-75"
+          className="bg-white border border-gray-200 rounded-xl p-6 hardware-accelerated hover:shadow-md transition-shadow duration-150"
         >
           <div className="flex items-center justify-between mb-4">
-            <div className={`${stat.iconBg} p-3 rounded-lg`}>
+            <div className={`${stat.bgColor} p-3 rounded-lg`}>
               <stat.icon className={`w-6 h-6 ${stat.iconColor}`} />
             </div>
           </div>
           <div>
-            <p className="text-sm font-semibold text-gray-400 mb-1 uppercase tracking-wider">{stat.label}</p>
+            <p className="text-sm font-semibold text-gray-500 mb-1 uppercase tracking-wider">{stat.label}</p>
             <p className={`text-2xl font-bold ${stat.valueColor} ${stat.isText ? 'text-base' : ''}`}>
               {stat.value}
             </p>

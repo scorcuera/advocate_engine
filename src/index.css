@@ -2,10 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Fonts et styles de base */
+/* Fonts et styles de base - Sociabble Style */
 @layer base {
   body {
-    @apply antialiased bg-dark-950 text-gray-100;
+    @apply antialiased bg-gray-50 text-gray-900;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
       'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
       sans-serif;
@@ -14,7 +14,7 @@
 
 /* Utilitaires personnalisés */
 @layer utilities {
-  /* Animation simple et légère */
+  /* Animation simple */
   @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
@@ -39,74 +39,69 @@
     overflow: hidden;
   }
 
-  /* Glass effect optimizado */
-  .glass-effect {
-    @apply bg-dark-900/95 border border-dark-700;
-    /* Blur solo si es estrictamente necesario, muchas veces la opacidad basta */
-    backdrop-filter: blur(4px); 
-  }
-
-  /* Panel sólido para máximo rendimiento (Listas, Cards) */
-  .glass-panel {
-    @apply bg-dark-800 border border-dark-700;
-    /* Sin transparencia ni blur para evitar composición compleja */
-  }
-
-  .glass-effect-light {
-    @apply bg-dark-700/50 border border-dark-600;
-  }
-  
   /* Aceleración */
   .hardware-accelerated {
     transform: translateZ(0);
     will-change: opacity, transform;
   }
 
-  /* Scrollbar discreta */
+  /* Scrollbar Sociabble style */
   .custom-scrollbar::-webkit-scrollbar {
     width: 8px;
   }
 
   .custom-scrollbar::-webkit-scrollbar-track {
-    @apply bg-dark-900;
+    @apply bg-gray-100;
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    @apply bg-dark-700 rounded-full hover:bg-dark-600;
+    @apply bg-gray-300 rounded-full hover:bg-gray-400;
   }
 }
 
-/* Componentes */
+/* Componentes Sociabble-style */
 @layer components {
   .modal-overlay {
-    @apply bg-black/80 backdrop-blur-sm;
+    @apply bg-black/50 backdrop-blur-sm;
   }
 
-  /* Botones Premium optimizados */
-  .btn-premium-primary {
-    @apply bg-primary-600 text-white font-semibold px-6 py-3 rounded-lg;
-    @apply hover:bg-primary-500 active:bg-primary-700;
+  /* Card style Sociabble */
+  .card-sociabble {
+    @apply bg-white rounded-xl shadow-md hover:shadow-lg border border-gray-200;
+    @apply transition-all duration-150;
+  }
+
+  /* Button Sociabble primario */
+  .btn-sociabble-primary {
+    @apply bg-sociabble-blue-500 text-white font-semibold px-6 py-3 rounded-lg;
+    @apply hover:bg-sociabble-blue-600 active:bg-sociabble-blue-700;
+    @apply transition-colors duration-150 shadow-sm hover:shadow-md;
+  }
+
+  .btn-sociabble-secondary {
+    @apply bg-white border-2 border-sociabble-blue-500 text-sociabble-blue-600 font-semibold px-6 py-3 rounded-lg;
+    @apply hover:bg-sociabble-blue-50;
     @apply transition-colors duration-150;
   }
 
-  .btn-premium-secondary {
-    @apply bg-dark-800 border border-dark-600 text-gray-200 font-semibold px-6 py-3 rounded-lg;
-    @apply hover:bg-dark-700 hover:border-dark-500;
-    @apply transition-colors duration-150;
+  /* Accent button */
+  .btn-sociabble-accent {
+    @apply bg-sociabble-orange-500 text-white font-semibold px-6 py-3 rounded-lg;
+    @apply hover:bg-sociabble-orange-600;
+    @apply transition-colors duration-150 shadow-sm hover:shadow-md;
   }
 }
 
-/* Reset global de transiciones */
+/* Transitions rapides */
 * {
-  /* Transiciones muy cortas solo donde importan */
   @apply transition-colors duration-75; 
 }
 
-/* Focus visible */
+/* Focus states Sociabble */
 button:focus-visible,
 input:focus-visible,
 select:focus-visible {
-  @apply outline-none ring-2 ring-primary-500/50 ring-offset-1 ring-offset-dark-900;
+  @apply outline-none ring-2 ring-sociabble-blue-500 ring-offset-2;
 }
 
 html {
@@ -114,11 +109,13 @@ html {
 }
 
 ::selection {
-  @apply bg-primary-600/30 text-white;
+  @apply bg-sociabble-blue-100 text-sociabble-blue-900;
 }
 
+/* Input styles Sociabble */
 input, select, textarea {
-  @apply bg-dark-900 border border-dark-700 text-gray-100 placeholder-gray-500;
+  @apply bg-white border border-gray-300 text-gray-900 placeholder-gray-400;
+  @apply focus:border-sociabble-blue-500 focus:ring-2 focus:ring-sociabble-blue-100;
 }
 
 
