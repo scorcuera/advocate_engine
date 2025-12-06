@@ -7,6 +7,14 @@
 [![Airtable](https://img.shields.io/badge/database-Airtable-yellow)](https://airtable.com)
 
 **[🔗 View Live Dashboard](https://scorcuera.github.io/advocate_engine/)**
+<br>
+<br>
+
+<img src="./assets/analytics_view.png" width="800" alt="Analytics View" />
+<br>
+<img src="./assets/articles_view.png" width="800" alt="Main Dashboard View" />
+<br>
+<img src="./assets/article_detail_view.png" width="800" alt="Article Detail View" />
 
 ---
 
@@ -35,7 +43,7 @@ Advocate Engine automates the entire content curation pipeline from discovery to
 ### Key Features
 
 ✅ **Automated Content Capture** - Monitors 5 premium RSS feeds  
-✅ **AI Content Analysis** - Generates summaries, scores relevance (1-10), detects sentiment  
+✅ **AI Content Analysis** - Generates summaries, scores relevance (1-10), detects sentiment
 ✅ **Multi-Channel Copy Generation** - Creates LinkedIn, Twitter, and Intranet posts in French  
 ✅ **Smart Categorization** - Automatically tags by industry  
 ✅ **Intelligent Deduplication** - Prevents duplicate content  
