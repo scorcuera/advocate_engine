@@ -9,7 +9,6 @@ import {
   XCircle,
   Copy,
   Linkedin,
-  Twitter,
   Globe,
   Hourglass
 } from 'lucide-react';
@@ -210,13 +209,13 @@ const ArticleDetail = ({ article, onClose, onApprove, onReject, isUpdating }) =>
               </div>
             </div>
           ) : (
-            <div className="space-y-4">
-              <h3 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                <span>📱</span> Copies pour diffusion
-              </h3>
+          <div className="space-y-4">
+            <h3 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+              <span>📱</span> Copies pour diffusion
+            </h3>
 
-              {/* LinkedIn */}
-              {article.linkedinCopy && (
+            {/* LinkedIn */}
+            {article.linkedinCopy && (
               <div className="bg-white border border-gray-300 rounded-xl p-6 hover:border-blue-400 hover:shadow-sm transition-all duration-150">
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-3">
@@ -246,19 +245,21 @@ const ArticleDetail = ({ article, onClose, onApprove, onReject, isUpdating }) =>
               </div>
             )}
 
-            {/* Twitter */}
+            {/* X (Twitter) */}
             {article.twitterCopy && (
-              <div className="bg-white border border-gray-300 rounded-xl p-6 hover:border-sky-400 hover:shadow-sm transition-all duration-150">
+              <div className="bg-white border border-gray-300 rounded-xl p-6 hover:border-gray-900 hover:shadow-sm transition-all duration-150">
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-3">
-                    <div className="bg-sky-100 p-2 rounded-lg">
-                      <Twitter className="w-6 h-6 text-sky-600" />
+                    <div className="bg-gray-900 p-2 rounded-lg">
+                      <svg className="w-6 h-6 text-white" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                      </svg>
                     </div>
-                    <h4 className="font-bold text-gray-900 text-lg">Twitter / X</h4>
+                    <h4 className="font-bold text-gray-900 text-lg">X</h4>
                   </div>
                   <button
                     onClick={() => copyToClipboard(article.twitterCopy, 'twitter')}
-                    className="flex items-center gap-2 px-4 py-2 bg-sky-500 text-white rounded-lg hover:bg-sky-600 transition-colors duration-150 text-sm font-bold"
+                    className="flex items-center gap-2 px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors duration-150 text-sm font-bold"
                   >
                     {copiedSection === 'twitter' ? (
                       <>
@@ -307,7 +308,7 @@ const ArticleDetail = ({ article, onClose, onApprove, onReject, isUpdating }) =>
                 <p className="text-gray-700 whitespace-pre-wrap leading-relaxed">{article.intranetCopy}</p>
               </div>
             )}
-            </div>
+          </div>
           )}
 
           {/* Lien vers l'article source */}
