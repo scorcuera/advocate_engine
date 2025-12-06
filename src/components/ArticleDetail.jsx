@@ -53,7 +53,7 @@ const ArticleDetail = ({ article, onClose, onApprove, onReject, isUpdating }) =>
   // Score color - Filled
   const getScoreColor = (score) => {
     if (score >= 8) return 'bg-green-500 text-white';
-    if (score >= 6) return 'bg-sociabble-blue-500 text-white';
+    if (score >= 6) return 'bg-blue-500 text-white';
     if (score >= 4) return 'bg-yellow-500 text-white';
     return 'bg-red-500 text-white';
   };
@@ -71,13 +71,13 @@ const ArticleDetail = ({ article, onClose, onApprove, onReject, isUpdating }) =>
       className="fixed inset-0 modal-overlay flex items-center justify-center z-50 p-4 overflow-y-auto animate-fade-in"
       onClick={onClose}
     >
-      {/* Contenedor del modal - Estilo Sociabble sin borde visible */}
+      {/* Contenedor del modal */}
       <div 
         className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto custom-scrollbar overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Header Sociabble Style - Sin borde superior gracias a overflow-hidden del parent */}
-        <div className="sticky top-0 bg-gradient-sociabble text-white px-8 py-6 z-20">
+        {/* Header */}
+        <div className="sticky top-0 bg-gradient-to-br from-blue-500 to-blue-600 text-white px-8 py-6 z-20">
           <div className="flex items-start justify-between mb-4">
             <div className="flex-1">
               <div className="flex items-center gap-3 mb-4 flex-wrap">
@@ -117,14 +117,14 @@ const ArticleDetail = ({ article, onClose, onApprove, onReject, isUpdating }) =>
             {article.industry && article.industry.length > 0 && (
               <div>
                 <div className="flex items-center gap-2 mb-3">
-                  <Tag className="w-5 h-5 text-sociabble-blue-600" />
+                  <Tag className="w-5 h-5 text-blue-600" />
                   <span className="text-sm font-bold text-gray-700 uppercase tracking-wider">Industries:</span>
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {article.industry.map((ind, index) => (
                     <span
                       key={index}
-                      className="px-4 py-2 bg-white text-sociabble-blue-700 rounded-lg text-sm font-bold border border-sociabble-blue-300 shadow-sm"
+                      className="px-4 py-2 bg-white text-blue-700 rounded-lg text-sm font-bold border border-blue-300 shadow-sm"
                     >
                       {ind}
                     </span>
@@ -151,8 +151,8 @@ const ArticleDetail = ({ article, onClose, onApprove, onReject, isUpdating }) =>
 
           {/* Résumé IA */}
           {article.aiSummary && (
-            <div className="bg-white border-l-4 border-sociabble-purple-500 rounded-xl p-6 shadow-sm">
-              <h3 className="text-xl font-bold text-sociabble-purple-700 mb-4 flex items-center gap-2">
+            <div className="bg-white border-l-4 border-purple-500 rounded-xl p-6 shadow-sm">
+              <h3 className="text-xl font-bold text-purple-700 mb-4 flex items-center gap-2">
                 <span>📝</span> Résumé IA
               </h3>
               <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">{article.aiSummary}</p>
@@ -161,8 +161,8 @@ const ArticleDetail = ({ article, onClose, onApprove, onReject, isUpdating }) =>
 
           {/* Points clés */}
           {article.aiKeyPoints && (
-            <div className="bg-white border-l-4 border-sociabble-blue-500 rounded-xl p-6 shadow-sm">
-              <h3 className="text-xl font-bold text-sociabble-blue-700 mb-4 flex items-center gap-2">
+            <div className="bg-white border-l-4 border-blue-500 rounded-xl p-6 shadow-sm">
+              <h3 className="text-xl font-bold text-blue-700 mb-4 flex items-center gap-2">
                 <span>🔑</span> Points clés
               </h3>
               <div className="text-gray-700 leading-relaxed whitespace-pre-wrap">{article.aiKeyPoints}</div>
@@ -177,7 +177,7 @@ const ArticleDetail = ({ article, onClose, onApprove, onReject, isUpdating }) =>
 
             {/* LinkedIn */}
             {article.linkedinCopy && (
-              <div className="bg-white border border-gray-300 rounded-xl p-6 hover:border-sociabble-blue-400 hover:shadow-sm transition-all duration-150">
+              <div className="bg-white border border-gray-300 rounded-xl p-6 hover:border-blue-400 hover:shadow-sm transition-all duration-150">
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-3">
                     <div className="bg-blue-100 p-2 rounded-lg">
@@ -187,7 +187,7 @@ const ArticleDetail = ({ article, onClose, onApprove, onReject, isUpdating }) =>
                   </div>
                   <button
                     onClick={() => copyToClipboard(article.linkedinCopy, 'linkedin')}
-                    className="btn-sociabble-primary text-sm"
+                    className="btn-primary text-sm"
                   >
                     {copiedSection === 'linkedin' ? (
                       <>
@@ -275,7 +275,7 @@ const ArticleDetail = ({ article, onClose, onApprove, onReject, isUpdating }) =>
               href={article.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-sociabble-secondary flex items-center gap-3 text-lg"
+              className="btn-secondary flex items-center gap-3 text-lg"
             >
               <ExternalLink className="w-6 h-6" />
               Lire l'article complet

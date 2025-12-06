@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Loader2, AlertCircle, CheckCircle, Newspaper, ChevronLeft, ChevronRight } from 'lucide-react';
-import Stats from './components/Stats';
+import Analytics from './components/Analytics';
 import Filters from './components/Filters';
 import ArticleCard from './components/ArticleCard';
 import ArticleDetail from './components/ArticleDetail';
 import ArticleSkeleton from './components/ArticleSkeleton';
-import { fetchArticles, updateArticleStatus, isConfigValid } from './services/airtable';
+import { fetchArticles, fetchAnalytics, updateArticleStatus, isConfigValid } from './services/airtable';
 
 /**
  * Composant principal de l'application
@@ -13,6 +13,7 @@ import { fetchArticles, updateArticleStatus, isConfigValid } from './services/ai
 function App() {
   // États
   const [articles, setArticles] = useState([]);
+  const [analytics, setAnalytics] = useState(null);
   const [filteredArticles, setFilteredArticles] = useState([]);
   const [paginatedArticles, setPaginatedArticles] = useState([]);
   const [selectedArticle, setSelectedArticle] = useState(null);
@@ -120,7 +121,7 @@ function App() {
   };
 
   /**
-   * Charger les articles depuis Airtable
+   * Charger les articles et analytics depuis Airtable
    */
   const loadArticles = async () => {
     // Vérifier la configuration
@@ -133,8 +134,17 @@ function App() {
     try {
       setLoading(true);
       setError(null);
-      const data = await fetchArticles();
-      setArticles(data);
+      
+      // Cargar artículos y analytics en paralelo
+      const [articlesData, analyticsData] = await Promise.all([
+        fetchArticles(),
+        fetchAnalytics()
+      ]);
+      
+      setArticles(articlesData);
+      setAnalytics(analyticsData);
+      
+      console.log('✅ Datos cargados:', articlesData.length, 'artículos', analyticsData ? '+ analytics' : '');
     } catch (err) {
       setError(err.message || 'Une erreur est survenue lors du chargement des articles.');
     } finally {
@@ -226,8 +236,8 @@ function App() {
   if (loading && articles.length === 0) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center bg-white p-12 rounded-2xl shadow-sociabble-lg border border-gray-200">
-          <Loader2 className="w-20 h-20 text-sociabble-blue-500 animate-spin mx-auto mb-6" />
+        <div className="text-center bg-white p-12 rounded-2xl shadow-xl border border-gray-200">
+          <Loader2 className="w-20 h-20 text-blue-500 animate-spin mx-auto mb-6" />
           <p className="text-2xl font-bold text-gray-900 mb-2">Chargement des articles...</p>
           <p className="text-gray-600">Préparation de votre dashboard</p>
         </div>
@@ -237,12 +247,12 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header Sociabble Style */}
+      {/* Header */}
       <header className="bg-white border-b border-gray-200 sticky top-0 z-40 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <div className="bg-gradient-sociabble p-3 rounded-xl shadow-sociabble">
+              <div className="bg-gradient-to-br from-blue-500 to-blue-600 p-3 rounded-xl shadow-md">
                 <Newspaper className="w-8 h-8 text-white" />
               </div>
               <div>
@@ -278,7 +288,7 @@ function App() {
               {!isConfigValid() && (
                 <button
                   onClick={() => window.location.reload()}
-                  className="mt-4 btn-sociabble-primary text-sm"
+                  className="mt-4 btn-primary text-sm"
                 >
                   Recharger la page
                 </button>
@@ -294,8 +304,8 @@ function App() {
           </div>
         )}
 
-        {/* Stats Dashboard */}
-        <Stats articles={articles} />
+        {/* Analytics du Système */}
+        <Analytics analytics={analytics} />
 
         {/* Filtres */}
         <Filters
@@ -324,7 +334,7 @@ function App() {
           </div>
           <button
             onClick={loadArticles}
-            className="btn-sociabble-primary flex items-center gap-2"
+            className="btn-primary flex items-center gap-2"
           >
             <Loader2 className="w-5 h-5" />
             Actualiser
@@ -367,7 +377,7 @@ function App() {
                   className={`p-2 rounded-lg bg-white border border-gray-300 transition-all ${
                     currentPage === 1 
                       ? 'opacity-50 cursor-not-allowed text-gray-400' 
-                      : 'text-gray-700 hover:bg-gray-50 hover:border-sociabble-blue-500'
+                      : 'text-gray-700 hover:bg-gray-50 hover:border-blue-500'
                   }`}
                 >
                   <ChevronLeft className="w-6 h-6" />
@@ -375,7 +385,7 @@ function App() {
                 
                 <div className="flex items-center gap-2">
                   <span className="text-gray-600 font-medium">Page</span>
-                  <span className="px-4 py-1 bg-sociabble-blue-500 text-white rounded-lg font-bold">
+                  <span className="px-4 py-1 bg-blue-500 text-white rounded-lg font-bold">
                     {currentPage}
                   </span>
                   <span className="text-gray-600 font-medium">sur {totalPages}</span>
@@ -387,7 +397,7 @@ function App() {
                   className={`p-2 rounded-lg bg-white border border-gray-300 transition-all ${
                     currentPage === totalPages 
                       ? 'opacity-50 cursor-not-allowed text-gray-400' 
-                      : 'text-gray-700 hover:bg-gray-50 hover:border-sociabble-blue-500'
+                      : 'text-gray-700 hover:bg-gray-50 hover:border-blue-500'
                   }`}
                 >
                   <ChevronRight className="w-6 h-6" />

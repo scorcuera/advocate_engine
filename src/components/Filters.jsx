@@ -33,8 +33,8 @@ const Filters = ({
   return (
     <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6 shadow-sm">
       <div className="flex items-center gap-3 mb-6">
-        <div className="bg-sociabble-blue-100 p-2 rounded-lg">
-          <Filter className="w-5 h-5 text-sociabble-blue-600" />
+        <div className="bg-blue-100 p-2 rounded-lg">
+          <Filter className="w-5 h-5 text-blue-600" />
         </div>
         <h2 className="text-xl font-bold text-gray-900">Filtres et recherche</h2>
         {hasActiveFilters && (
@@ -55,13 +55,13 @@ const Filters = ({
             Recherche par titre
           </label>
           <div className="relative group">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 group-focus-within:text-sociabble-blue-500 transition-colors" />
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 group-focus-within:text-blue-500 transition-colors" />
             <input
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Rechercher un article..."
-              className="w-full pl-12 pr-4 py-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-sociabble-blue-500 focus:border-sociabble-blue-500 outline-none transition-all placeholder-gray-400"
+              className="w-full pl-12 pr-4 py-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all placeholder-gray-400"
             />
           </div>
         </div>
@@ -74,7 +74,7 @@ const Filters = ({
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-sociabble-blue-500 focus:border-sociabble-blue-500 outline-none transition-all cursor-pointer"
+            className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all cursor-pointer"
           >
             {statuses.map(status => (
               <option key={status} value={status}>{status}</option>
@@ -90,7 +90,7 @@ const Filters = ({
           <select
             value={sentimentFilter}
             onChange={(e) => setSentimentFilter(e.target.value)}
-            className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-sociabble-blue-500 focus:border-sociabble-blue-500 outline-none transition-all cursor-pointer"
+            className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all cursor-pointer"
           >
             {sentiments.map(sentiment => (
               <option key={sentiment} value={sentiment}>{sentiment}</option>
@@ -106,7 +106,7 @@ const Filters = ({
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
-            className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-sociabble-blue-500 focus:border-sociabble-blue-500 outline-none transition-all cursor-pointer"
+            className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all cursor-pointer"
           >
             <option value="date-desc">Date (plus récent)</option>
             <option value="date-asc">Date (plus ancien)</option>
@@ -136,7 +136,7 @@ const Filters = ({
                 }}
                 className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all ${
                   isSelected
-                    ? 'bg-sociabble-blue-500 text-white shadow-sm'
+                    ? 'bg-blue-500 text-white shadow-sm'
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-300'
                 }`}
               >

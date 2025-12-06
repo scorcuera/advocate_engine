@@ -137,6 +137,92 @@ export const updateArticleStatus = async (recordId, newStatus) => {
 };
 
 /**
+ * Récupère les analytics récentes depuis la table Analytics_Log
+ * @returns {Promise<Object>} Analytics agrégées
+ */
+export const fetchAnalytics = async () => {
+  try {
+    const analyticsTableName = 'Analytics_Log';
+    const encodedAnalyticsTable = encodeURIComponent(analyticsTableName);
+    const analyticsUrl = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodedAnalyticsTable}?sort[0][field]=Date&sort[0][direction]=desc&maxRecords=30`;
+    
+    console.log('📊 Fetching analytics from Airtable...');
+    
+    const response = await fetch(analyticsUrl, {
+      method: 'GET',
+      headers: getHeaders(),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      console.error('❌ Erreur analytics:', errorData);
+      
+      if (response.status === 404) {
+        console.warn('⚠️ Table Analytics_Log non trouvée. Les analytics ne seront pas disponibles.');
+        return null;
+      }
+      
+      throw new Error(`Erreur lors de la récupération des analytics: ${response.status}`);
+    }
+
+    const data = await response.json();
+    const records = data.records;
+
+    console.log('✅ Analytics reçues:', records.length, 'enregistrements');
+
+    if (records.length === 0) {
+      return null;
+    }
+
+    // Calcular métricas agregadas
+    const totalArticlesFetched = records.reduce((sum, r) => 
+      sum + (r.fields.Total_Articles_Fetched || 0), 0
+    );
+
+    const totalArticlesAnalyzed = records.reduce((sum, r) => 
+      sum + (r.fields.Articles_Analyzed || 0), 0
+    );
+
+    const totalArticlesApproved = records.reduce((sum, r) => 
+      sum + (r.fields.Articles_Approved || 0), 0
+    );
+    
+    const avgScore = records.length > 0
+      ? records.reduce((sum, r) => sum + (r.fields.Average_Relevance_Score || 0), 0) / records.length
+      : 0;
+
+    // Último registro (más reciente)
+    const latest = records[0]?.fields || {};
+
+    // Últimas 7 ejecuciones para gráficos
+    const recentExecutions = records.slice(0, 7).map(r => ({
+      date: r.fields.Date,
+      totalFetched: r.fields.Total_Articles_Fetched || 0,
+      analyzed: r.fields.Articles_Analyzed || 0,
+      approved: r.fields.Articles_Approved || 0,
+      avgScore: r.fields.Average_Relevance_Score || 0,
+      topIndustry: r.fields.Top_Industry || 'N/A',
+      executionTime: r.fields.Execution_Time_Seconds || 0,
+    }));
+
+    return {
+      totalArticlesFetched,
+      totalArticlesAnalyzed,
+      totalArticlesApproved,
+      averageScore: Math.round(avgScore * 10) / 10,
+      topIndustry: latest.Top_Industry || 'N/A',
+      lastExecution: latest.Date || null,
+      lastExecutionTime: latest.Execution_Time_Seconds || 0,
+      recentExecutions,
+    };
+  } catch (error) {
+    console.error('❌ Erreur lors de la récupération des analytics:', error);
+    // No lanzar error, solo retornar null para que la app continúe funcionando
+    return null;
+  }
+};
+
+/**
  * Vérifie si la configuration Airtable est valide
  * @returns {boolean} True si la configuration est complète
  */

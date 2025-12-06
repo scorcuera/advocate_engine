@@ -23,10 +23,10 @@ const ArticleCard = ({ article, onCardClick }) => {
 
   // Couleurs pour les industries
   const industryColors = [
-    'bg-sociabble-blue-100 text-sociabble-blue-700 border-sociabble-blue-300',
-    'bg-sociabble-purple-100 text-sociabble-purple-700 border-sociabble-purple-300',
+    'bg-blue-100 text-blue-700 border-blue-300',
+    'bg-purple-100 text-purple-700 border-purple-300',
     'bg-teal-100 text-teal-700 border-teal-300',
-    'bg-sociabble-orange-100 text-sociabble-orange-700 border-sociabble-orange-300',
+    'bg-orange-100 text-orange-700 border-orange-300',
   ];
 
   // Formater la date
@@ -43,7 +43,7 @@ const ArticleCard = ({ article, onCardClick }) => {
   // Score color based on value
   const getScoreColor = (score) => {
     if (score >= 8) return 'text-green-700 bg-green-100 border-green-300';
-    if (score >= 6) return 'text-sociabble-blue-700 bg-sociabble-blue-100 border-sociabble-blue-300';
+    if (score >= 6) return 'text-blue-700 bg-blue-100 border-blue-300';
     if (score >= 4) return 'text-yellow-700 bg-yellow-100 border-yellow-300';
     return 'text-red-700 bg-red-100 border-red-300';
   };
@@ -51,7 +51,7 @@ const ArticleCard = ({ article, onCardClick }) => {
   return (
     <div
       onClick={() => onCardClick(article)}
-      className="group relative bg-white border border-gray-200 rounded-xl cursor-pointer overflow-hidden hover:shadow-md hover:border-sociabble-blue-300 transition-all duration-150 hardware-accelerated"
+      className="group relative bg-white border border-gray-200 rounded-xl cursor-pointer overflow-hidden hover:shadow-md hover:border-blue-300 transition-all duration-150 hardware-accelerated"
     >
       {/* Header avec statut et score */}
       <div className="relative px-6 py-4 border-b border-gray-200 bg-gray-50">
@@ -66,7 +66,7 @@ const ArticleCard = ({ article, onCardClick }) => {
         </div>
         
         {/* Titre */}
-        <h3 className="text-lg font-bold text-gray-900 group-hover:text-sociabble-blue-600 transition-colors duration-150 line-clamp-2">
+        <h3 className="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition-colors duration-150 line-clamp-2">
           {article.title}
         </h3>
       </div>
@@ -149,7 +149,7 @@ const ArticleCard = ({ article, onCardClick }) => {
                 e.stopPropagation();
                 onCardClick(article);
               }}
-              className="text-sm font-bold text-sociabble-blue-600 hover:text-sociabble-blue-700 transition-colors duration-75 flex items-center gap-1"
+              className="text-sm font-bold text-blue-600 hover:text-blue-700 transition-colors duration-75 flex items-center gap-1"
             >
               Voir les détails
             </button>
@@ -158,7 +158,7 @@ const ArticleCard = ({ article, onCardClick }) => {
               target="_blank"
               rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()}
-              className="flex items-center gap-2 text-sm text-gray-500 hover:text-sociabble-orange-600 transition-colors duration-75"
+              className="flex items-center gap-2 text-sm text-gray-500 hover:text-orange-600 transition-colors duration-75"
             >
               <ExternalLink className="w-4 h-4" />
               Source

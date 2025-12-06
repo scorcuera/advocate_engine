@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Fonts et styles de base - Sociabble Style */
+/* Fonts et styles de base */
 @layer base {
   body {
     @apply antialiased bg-gray-50 text-gray-900;
@@ -45,7 +45,7 @@
     will-change: opacity, transform;
   }
 
-  /* Scrollbar Sociabble style - Discreto y elegante */
+  /* Custom scrollbar - Discreto y elegante */
   .custom-scrollbar::-webkit-scrollbar {
     width: 6px;
   }
@@ -70,35 +70,35 @@
   }
 }
 
-/* Componentes Sociabble-style */
+/* Componentes personalizados */
 @layer components {
   .modal-overlay {
     @apply bg-black/50 backdrop-blur-sm;
   }
 
-  /* Card style Sociabble */
-  .card-sociabble {
+  /* Card style */
+  .card-custom {
     @apply bg-white rounded-xl shadow-md hover:shadow-lg border border-gray-200;
     @apply transition-all duration-150;
   }
 
-  /* Button Sociabble primario */
-  .btn-sociabble-primary {
-    @apply bg-sociabble-blue-500 text-white font-semibold px-6 py-3 rounded-lg;
-    @apply hover:bg-sociabble-blue-600 active:bg-sociabble-blue-700;
+  /* Button primario */
+  .btn-primary {
+    @apply bg-blue-500 text-white font-semibold px-6 py-3 rounded-lg;
+    @apply hover:bg-blue-600 active:bg-blue-700;
     @apply transition-colors duration-150 shadow-sm hover:shadow-md;
   }
 
-  .btn-sociabble-secondary {
-    @apply bg-white border-2 border-sociabble-blue-500 text-sociabble-blue-600 font-semibold px-6 py-3 rounded-lg;
-    @apply hover:bg-sociabble-blue-50;
+  .btn-secondary {
+    @apply bg-white border-2 border-blue-500 text-blue-600 font-semibold px-6 py-3 rounded-lg;
+    @apply hover:bg-blue-50;
     @apply transition-colors duration-150;
   }
 
   /* Accent button */
-  .btn-sociabble-accent {
-    @apply bg-sociabble-orange-500 text-white font-semibold px-6 py-3 rounded-lg;
-    @apply hover:bg-sociabble-orange-600;
+  .btn-accent {
+    @apply bg-orange-500 text-white font-semibold px-6 py-3 rounded-lg;
+    @apply hover:bg-orange-600;
     @apply transition-colors duration-150 shadow-sm hover:shadow-md;
   }
 }
@@ -108,11 +108,11 @@
   @apply transition-colors duration-75; 
 }
 
-/* Focus states Sociabble */
+/* Focus states */
 button:focus-visible,
 input:focus-visible,
 select:focus-visible {
-  @apply outline-none ring-2 ring-sociabble-blue-500 ring-offset-2;
+  @apply outline-none ring-2 ring-blue-500 ring-offset-2;
 }
 
 html {
@@ -120,13 +120,13 @@ html {
 }
 
 ::selection {
-  @apply bg-sociabble-blue-100 text-sociabble-blue-900;
+  @apply bg-blue-100 text-blue-900;
 }
 
-/* Input styles Sociabble */
+/* Input styles */
 input, select, textarea {
   @apply bg-white border border-gray-300 text-gray-900 placeholder-gray-400;
-  @apply focus:border-sociabble-blue-500 focus:ring-2 focus:ring-sociabble-blue-100;
+  @apply focus:border-blue-500 focus:ring-2 focus:ring-blue-100;
 }
 
 
