@@ -72,9 +72,6 @@ const Analytics = ({ analytics }) => {
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-3">
-          <div className="bg-gradient-to-br from-indigo-500 to-purple-600 p-2 rounded-lg shadow-sm">
-            <BarChart3 className="w-5 h-5 text-white" />
-          </div>
           <div>
             <h2 className="text-xl font-bold text-gray-900">Analytics du Système</h2>
             <p className="text-sm text-gray-600">
