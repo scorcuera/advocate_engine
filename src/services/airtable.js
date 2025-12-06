@@ -150,7 +150,7 @@ export const fetchAnalytics = async () => {
   try {
     const analyticsTableName = 'Analytics_Log';
     const encodedAnalyticsTable = encodeURIComponent(analyticsTableName);
-    const analyticsUrl = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodedAnalyticsTable}?sort[0][field]=Date&sort[0][direction]=desc&maxRecords=1`;
+    const analyticsUrl = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodedAnalyticsTable}?sort[0][field]=Created_Time&sort[0][direction]=desc&maxRecords=1`;
         
     const response = await fetch(analyticsUrl, {
       method: 'GET',
