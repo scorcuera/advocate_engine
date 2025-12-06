@@ -77,41 +77,41 @@ const ArticleDetail = ({ article, onClose, onApprove, onReject, isUpdating }) =>
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="sticky top-0 bg-gradient-to-br from-blue-500 to-blue-600 text-white px-8 py-6 z-20">
-          <div className="flex items-start justify-between mb-4">
+        <div className="sticky top-0 bg-gradient-to-br from-blue-500 to-blue-600 text-white px-4 sm:px-8 py-4 sm:py-6 z-20">
+          <div className="flex items-start justify-between mb-3 sm:mb-4">
             <div className="flex-1">
-              <div className="flex items-center gap-3 mb-4 flex-wrap">
-                <span className={`px-4 py-2 rounded-lg text-sm font-bold ${statusColors[article.status] || statusColors.New}`}>
+              <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4 flex-wrap">
+                <span className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm font-bold ${statusColors[article.status] || statusColors.New}`}>
                   {article.status}
                 </span>
-                <div className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-bold ${getScoreColor(article.relevanceScore)}`}>
-                  <TrendingUp className="w-4 h-4" />
+                <div className={`flex items-center gap-1.5 sm:gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm font-bold ${getScoreColor(article.relevanceScore)}`}>
+                  <TrendingUp className="w-3 h-3 sm:w-4 sm:h-4" />
                   <span>{article.relevanceScore}/10</span>
                 </div>
-                <span className={`px-4 py-2 rounded-lg text-sm font-bold ${sentimentColors[article.sentiment] || sentimentColors.Neutral}`}>
+                <span className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm font-bold ${sentimentColors[article.sentiment] || sentimentColors.Neutral}`}>
                   {article.sentiment}
                 </span>
               </div>
-              <h2 className="text-3xl font-bold mb-3 leading-tight">{article.title}</h2>
-              <div className="flex items-center gap-4 text-sm text-blue-50">
-                <div className="flex items-center gap-2 bg-white/20 px-3 py-1.5 rounded-lg backdrop-blur-sm">
-                  <Calendar className="w-4 h-4" />
-                  <span className="font-medium">{formatDate(article.publicationDate)}</span>
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-2 sm:mb-3 leading-tight">{article.title}</h2>
+              <div className="flex items-center gap-2 sm:gap-4 text-xs sm:text-sm text-blue-50 flex-wrap">
+                <div className="flex items-center gap-1.5 sm:gap-2 bg-white/20 px-2 py-1 sm:px-3 sm:py-1.5 rounded-lg backdrop-blur-sm">
+                  <Calendar className="w-3 h-3 sm:w-4 sm:h-4" />
+                  <span className="font-medium text-xs sm:text-sm">{formatDate(article.publicationDate)}</span>
                 </div>
-                <span className="bg-white/20 px-3 py-1.5 rounded-lg font-bold backdrop-blur-sm">{article.source}</span>
+                <span className="bg-white/20 px-2 py-1 sm:px-3 sm:py-1.5 rounded-lg font-bold backdrop-blur-sm text-xs sm:text-sm">{article.source}</span>
               </div>
             </div>
             <button
               onClick={onClose}
-              className="bg-white/20 hover:bg-white/30 rounded-lg p-2.5 transition-colors duration-150 backdrop-blur-sm"
+              className="bg-white/20 hover:bg-white/30 rounded-lg p-2 sm:p-2.5 transition-colors duration-150 backdrop-blur-sm flex-shrink-0"
             >
-              <X className="w-6 h-6" />
+              <X className="w-5 h-5 sm:w-6 sm:h-6" />
             </button>
           </div>
         </div>
 
         {/* Corps */}
-        <div className="px-8 py-6 space-y-6 bg-gray-50">
+        <div className="px-4 sm:px-8 py-4 sm:py-6 space-y-4 sm:space-y-6 bg-gray-50">
           {/* Industries et Tags */}
           <div className="flex flex-wrap gap-6">
             {article.industry && article.industry.length > 0 && (
@@ -325,39 +325,44 @@ const ArticleDetail = ({ article, onClose, onApprove, onReject, isUpdating }) =>
           </div>
         </div>
 
-        {/* Footer avec actions - Limpio sin línea separadora pesada */}
-        <div className="sticky bottom-0 bg-white px-8 py-6 z-20 border-t border-gray-200">
-          <div className="flex items-center justify-between gap-4">
+        {/* Footer avec actions - Optimisé mobile */}
+        <div className="sticky bottom-0 bg-white px-4 sm:px-8 py-2.5 sm:py-6 z-20 border-t border-gray-200">
+          <div className="flex items-center justify-between gap-2 sm:gap-4">
+            {/* Bouton Fermer - caché en mobile */}
             <button
               onClick={onClose}
-              className="px-8 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg font-bold transition-colors duration-150"
+              className="hidden sm:block px-8 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg font-bold transition-colors duration-150"
             >
               Fermer
             </button>
-            <div className="flex gap-4">
+            
+            {/* Boutons d'action - horizontal en mobile aussi */}
+            <div className="flex gap-2 sm:gap-4 w-full sm:w-auto">
               <button
                 onClick={() => onReject(article.id)}
                 disabled={isUpdating || article.status === 'Rejected'}
-                className={`flex items-center gap-2 px-8 py-3 rounded-lg font-bold transition-all duration-150 ${
+                className={`flex items-center justify-center gap-1.5 sm:gap-2 flex-1 sm:flex-initial px-4 sm:px-8 py-2.5 sm:py-3 rounded-lg text-sm sm:text-base font-bold transition-all duration-150 ${
                   article.status === 'Rejected'
                     ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
                     : 'bg-red-600 hover:bg-red-700 text-white shadow-sm hover:shadow-md active:scale-95'
                 }`}
               >
-                <XCircle className="w-5 h-5" />
-                {isUpdating ? 'Traitement...' : 'Rejeter'}
+                <XCircle className="w-4 h-4 sm:w-5 sm:h-5" />
+                <span className="hidden xs:inline">{isUpdating ? 'Traitement...' : 'Rejeter'}</span>
+                <span className="xs:hidden">{isUpdating ? '...' : 'Rejeter'}</span>
               </button>
               <button
                 onClick={() => onApprove(article.id)}
                 disabled={isUpdating || article.status === 'Approved'}
-                className={`flex items-center gap-2 px-8 py-3 rounded-lg font-bold transition-all duration-150 ${
+                className={`flex items-center justify-center gap-1.5 sm:gap-2 flex-1 sm:flex-initial px-4 sm:px-8 py-2.5 sm:py-3 rounded-lg text-sm sm:text-base font-bold transition-all duration-150 ${
                   article.status === 'Approved'
                     ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
                     : 'bg-green-600 hover:bg-green-700 text-white shadow-sm hover:shadow-md active:scale-95'
                 }`}
               >
-                <Check className="w-5 h-5" />
-                {isUpdating ? 'Traitement...' : 'Approuver'}
+                <Check className="w-4 h-4 sm:w-5 sm:h-5" />
+                <span className="hidden xs:inline">{isUpdating ? 'Traitement...' : 'Approuver'}</span>
+                <span className="xs:hidden">{isUpdating ? '...' : 'Approuver'}</span>
               </button>
             </div>
           </div>
