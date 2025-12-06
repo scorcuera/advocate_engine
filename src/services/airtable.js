@@ -23,23 +23,14 @@ const getHeaders = () => ({
  */
 export const fetchArticles = async () => {
   try {
-    console.log('🔍 Fetching articles from Airtable...');
-    console.log('📍 URL:', BASE_URL);
-    console.log('🔑 API Key présente:', !!AIRTABLE_API_KEY);
-    console.log('🗄️ Base ID:', AIRTABLE_BASE_ID);
-    
     const response = await fetch(BASE_URL, {
       method: 'GET',
       headers: getHeaders(),
     });
 
-    console.log('📡 Response status:', response.status);
-    console.log('📡 Response status text:', response.statusText);
-
     if (!response.ok) {
       // Essayer de lire le détail de l'erreur
       const errorData = await response.json().catch(() => ({}));
-      console.error('❌ Erreur détaillée:', errorData);
       
       if (response.status === 401) {
         throw new Error('Erreur d\'authentification (401): Vérifiez votre clé API Airtable. Assurez-vous d\'utiliser un Personal Access Token valide.');
@@ -55,7 +46,6 @@ export const fetchArticles = async () => {
     }
 
     const data = await response.json();
-    console.log('✅ Données reçues:', data.records?.length || 0, 'articles');
     
     // Formater les données pour l'application
     return data.records.map(record => ({
@@ -77,7 +67,6 @@ export const fetchArticles = async () => {
       tags: record.fields.Tags || [],
     }));
   } catch (error) {
-    console.error('❌ Erreur lors de la récupération des articles:', error);
     
     // Si c'est une erreur réseau
     if (error.message.includes('Failed to fetch') || error.name === 'TypeError') {
@@ -131,7 +120,6 @@ export const updateArticleStatus = async (recordId, newStatus) => {
       tags: data.fields.Tags || [],
     };
   } catch (error) {
-    console.error('Erreur lors de la mise à jour du statut:', error);
     throw new Error('Impossible de mettre à jour le statut de l\'article.');
   }
 };
@@ -145,9 +133,7 @@ export const fetchAnalytics = async () => {
     const analyticsTableName = 'Analytics_Log';
     const encodedAnalyticsTable = encodeURIComponent(analyticsTableName);
     const analyticsUrl = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodedAnalyticsTable}?sort[0][field]=Date&sort[0][direction]=desc&maxRecords=1`;
-    
-    console.log('📊 Fetching analytics from Airtable...');
-    
+        
     const response = await fetch(analyticsUrl, {
       method: 'GET',
       headers: getHeaders(),
@@ -155,7 +141,6 @@ export const fetchAnalytics = async () => {
 
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));
-      console.error('❌ Erreur analytics:', errorData);
       
       if (response.status === 404) {
         console.warn('⚠️ Table Analytics_Log non trouvée.');
@@ -168,24 +153,22 @@ export const fetchAnalytics = async () => {
     const data = await response.json();
 
     if (!data.records || data.records.length === 0) {
-      console.log('⚠️ Aucun enregistrement dans Analytics_Log');
       return null;
     }
 
     const latest = data.records[0].fields;
 
-    console.log('✅ Analytics cargadas:', latest);
-
+    // ✅ CORREGIDO: Nombres que coinciden con el componente Analytics
     return {
-      totalArticlesAllTime: latest.Total_Articles_Fetched || 0,
+      totalArticlesFetched: latest.Total_Articles_Fetched || 0,  // ✅ Cambiado
+      totalArticlesAnalyzed: latest.Articles_Analyzed || 0,      // ✅ Cambiado
       averageScore: latest.Average_Relevance_Score || 0,
       topIndustry: latest.Top_Industry || 'N/A',
-      articlesAnalyzed: latest.Articles_Analyzed || 0,
       articlesApproved: latest.Articles_Approved || 0,
       lastExecution: latest.Date || null,
+      lastExecutionTime: 0, // Placeholder (ya eliminamos este campo de la tabla)
     };
   } catch (error) {
-    console.error('❌ Erreur analytics:', error);
     return null;
   }
 };

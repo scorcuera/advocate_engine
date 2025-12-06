@@ -143,8 +143,7 @@ function App() {
       
       setArticles(articlesData);
       setAnalytics(analyticsData);
-      
-      console.log('✅ Datos cargados:', articlesData.length, 'artículos', analyticsData ? '+ analytics' : '');
+
     } catch (err) {
       setError(err.message || 'Une erreur est survenue lors du chargement des articles.');
     } finally {
